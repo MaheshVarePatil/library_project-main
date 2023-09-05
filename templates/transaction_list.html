@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h2>Transaction List</h2>
+
+  <form method="GET" action="{% url 'transaction_list' %}">
+    <div class="search-form">
+      <input type="text" name="book_title" placeholder="Search by Book Title" value="{{ request.GET.book_title }}">
+      <input type="text" name="member_name" placeholder="Search by Member Name" value="{{ request.GET.member_name }}">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+
+  <table class="transaction-table">
+    <thead>
+      <tr>
+        <th>Book Title</th>
+        <th>Member Name</th>
+        <th>Issue Date</th>
+        <th>Return Date</th>
+        <th>Rent Fee (Rs.)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.book.title }}</td>
+          <td>{{ transaction.member.name }}</td>
+          <td>{{ transaction.issue_date }}</td>
+          <td>{{ transaction.return_date }}</td>
+          <td>{{ transaction.rent_fee }}</td>
+          <td>
+            <a href="{% url 'transaction_update' transaction.pk %}" class="btn btn-edit">Edit</a>
+            <form method="post" action="{% url 'transaction_delete' transaction.pk %}" class="delete-form">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-delete">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No transactions available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'transaction_create' %}" class="btn btn-primary addTransactionbtn">Add Transaction</a>
+{% endblock %}

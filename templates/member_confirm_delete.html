@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Deletion</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirm Deletion</h1>
+        <p>Are you sure you want to delete the following member?</p>
+        <p><strong>Name:</strong> {{ member.name }}</p>
+        <p><strong>Email:</strong> {{ member.email }}</p>
+        <p><strong>Phone:</strong> {{ member.phone }}</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" name="confirm">Confirm Deletion</button>
+            <a href="{% url 'member_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

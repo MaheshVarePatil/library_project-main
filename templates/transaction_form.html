@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h2>{{ form.instance.book.title|default:"Add Transaction" }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="{{ form.book.id }}">Book:</label>
+      {{ form.book }}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.member.id }}">Member:</label>
+      {{ form.member }}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.issue_date.id }}" type="date">Issue Date:</label>
+      {{ form.issue_date }}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.return_date.id }}" type="date">Return Date:</label>
+      {{ form.return_date }}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.rent_fee.id }}" id="amount">Rent Fee (Rs.):</label>
+      {{ form.rent_fee }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+
+  <a href="{% url 'transaction_list' %}" class="btn btn-secondary">Cancel</a>
+{% endblock %}

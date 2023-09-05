@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Book List</h2>
+  <form method="GET" action="{% url 'book_list' %}">
+    <div class="search-form">
+      <input type="text" name="title" placeholder="Search by Title" value="{{ request.GET.title }}">
+      <input type="text" name="author" placeholder="Search by Author" value="{{ request.GET.author }}">
+      <button type="submit" class="searchbtn">Search</button>
+    </div>
+  </form>
+  <table class="book-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Publisher</th>
+        <th>Page Count</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+        <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.isbn }}</td>
+          <td>{{ book.publisher }}</td>
+          <td>{{ book.page_count }}</td>
+          <td>{{ book.stock }}</td>
+          <td>
+            <a href="{% url 'book_update' book.pk %}" class="btn btn-edit">Edit</a>
+            <form method="post" action="{% url 'book_delete' book.pk %}" class="delete-form">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-delete">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7">No books available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'book_create' %}" class="btn btn-primary">Add Book</a>
+  <a href="{% url 'book_import' %}" class="btn btn-secondary importbtn">Import Books</a>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Library Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'book_list' %}">Home</a></li>
+                <li><a href="{% url 'book_list' %}">Books</a></li>
+                <li><a href="{% url 'member_list' %}">Members</a></li>
+                <li><a href="{% url 'transaction_list' %}">Transactions</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>copyrights; {{ year }} My Library</p>
+    </footer>
+
+    
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Book Import</h2>
+  <form method="get" action="{% url 'book_import' %}">
+    <input
+      type="text"
+      name="user_input"
+      value="{{ user_input }}"
+      placeholder="Enter book title or author"
+    />
+    <button type="submit">Search</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>ISBN</th>
+        <th>Publisher</th>
+        <th>Page Count</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books_data %}
+        <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.authors }}</td>
+          <td>{{ book.isbn }}</td>
+          <td>{{ book.publisher }}</td>
+          <td>{{ book.page_count }}</td>
+          <td>
+            <a href="/">Import</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No results found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

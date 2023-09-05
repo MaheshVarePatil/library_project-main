@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Deletion</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirm Deletion</h1>
+        <p>Are you sure you want to delete the following transaction?</p>
+        <p><strong>Transaction ID:</strong> {{ transaction.transaction_id }}</p>
+        <p><strong>Book Title:</strong> {{ transaction.book.title }}</p>
+        <p><strong>Member Name:</strong> {{ transaction.member.name }}</p>
+        <p><strong>Transaction Date:</strong> {{ transaction.transaction_date }}</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" name="confirm">Confirm Deletion</button>
+            <a href="{% url 'transaction_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
